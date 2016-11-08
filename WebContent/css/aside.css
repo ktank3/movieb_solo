@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+/*----------------------------#aside-menu--------------------------*/
+#aside {
+	min-height: inherit;
+	width: 205px;
+	height: 700px;
+	float: left;
+}
+
+#aside>h1 {
+	display: none;
+}
+
+#aside-menu>h1 {
+	display: none;
+}
+
+#aside-menu>ul>li {
+	height: 26px;
+	line-height: 26px;
+	background: url("../images/bg-aside-menu-hsp.png") no-repeat bottom;
+}
+
+#aside-menu>ul>li>a {
+	text-decoration: none;
+	color: black;
+	padding-left: 26px;
+}
+
+#aside-menu>ul>li a:hover {
+	padding-left: 26px;
+	background: url("../images/icon-current.png") no-repeat 15px center;
+}

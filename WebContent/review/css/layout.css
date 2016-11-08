@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+@IMPORT url("../../css/reset.css");
+@IMPORT url("../../css/header.css");
+@IMPORT url("../../css/aside.css");
+@IMPORT url("../../css/footer.css");
+@IMPORT url("../../css/style.css");
+
+/*----------------------------#main--------------------------*/
+#main{
+   height:700px;
+   width:calc(100% - 205px);
+   float:left;
+   
+}
+ 
+#body > .content-container{	
+
+	position:relative;	
+} 
+.content-container{
+  /*  부모 높이에 맞는 높이 설정 */
+   height: inherit;
+   margin: auto;
+   position:relative;
+}

@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+
+#header {
+	height: 100px;
+	background: url(../images/main_back.png) repeat center;
+}
+
+#header .content-container {
+	position: relative;
+}
+
+#header header>section>h1 {
+	display: none;
+}
+
+#logo {
+	height: 80px;
+	width: 150px;
+	background: url(../images/main_logo.png) no-repeat center;
+	padding-left: 100px;
+	padding-top: 20px;
+	left: 50px;
+}
+
+#logo>h1 {
+	display: none;
+}
+
+/*----------------------------#main-menu--------------------------*/
+#member-menu {
+	position: absolute;
+	display: inline-block;
+	font-family: "맑은 고딕";
+	font-weight: bold;
+	font-size: 20px;
+	color: #000;
+	right: 0px;
+	top: 50px;
+}
+
+#member-menu a {
+	color: #000;
+	text-decoration: none;
+}
+
+#member-menu a:hover {
+	color: #ff0080;
+	text-decoration: underline;
+}
+
+#member-menu>h1 {
+	display: none;
+}
+
+#member-menu>ul {
+	overflow: auto;
+}
+
+#member-menu>ul>li {
+	float: left;
+	padding-left: 24px;
+}
+
+/*두번째 애는 li:first-child+li이런식으로 하면됨*/
+#main-menu>ul>li:first-child {
+	padding-left: 0px;
+	background: none;
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.web.dao.ReviewDao">
+	<select id="get" resultType="review.web.dao.entity.Review">
+		SELECT * FROM REVIEW_NOTICE WHERE CODE=#{code}
+	</select>
+	<select id="getList" resultType="review.web.dao.model.ReviewModel">
+
+		SELECT * FROM
+		(
+		SELECT
+		ROW_NUMBER() OVER (ORDER BY REGDATE DESC) NUM,
+		REVIEW_NOTICE_VIEW.*
+		FROM REVIEW_NOTICE_VIEW
+		WHERE ${param2} LIKE '%${param3}%'
+		) N
+		WHERE NUM BETWEEN 1+(#{param1}-1)*10
+		AND #{param1}*10
+
+	</select>
+	<update id="update" parameterType="review.web.dao.entity.Review">
+		<!-- 업데이트야요 -->
+		UPDATE REVIEW_NOTICE SET TITLE=#{title}, CONTENT=#{content} ,
+		MOVIE_TITLE=#{movie_title}
+		WHERE CODE=#{code}
+	</update>
+	<delete id="delete">
+		DELETE REVIEW_NOTICE WHERE CODE=#{code}
+	</delete>
+	<insert id="insert" parameterType="review.web.dao.entity.Review">
+		<selectKey order="BEFORE" keyProperty="code" resultType="String">
+			SELECT ISNULL(MAX(CAST(CODE AS INT)), 0)+1 AS CODE FROM REVIEW_NOTICE
+		</selectKey>
+		INSERT INTO REVIEW_NOTICE(CODE, TITLE, MOVIE_TITLE, WRITER, CONTENT)
+		VALUES(#{code}, #{title}, #{movie_title}, #{writer}, #{content})
+	</insert>
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) COUNT FROM
+		(
+		SELECT
+		ROW_NUMBER() OVER (ORDER BY REGDATE DESC) NUM,
+		REVIEW_NOTICE_VIEW.*
+		FROM REVIEW_NOTICE_VIEW
+		WHERE ${param1} LIKE '%${param2}%'
+		) N
+	</select>
+		<select id="getPrev" resultType="review.web.dao.entity.Review">
+		select top 1 * from REVIEW_NOTICE
+		where code &gt; cast(#{code} as int)
+		order by regdate asc
+	</select>
+	
+	<select id="getNext" resultType="review.web.dao.entity.Review">
+		select top 1 * from REVIEW_NOTICE
+		where code &lt; cast(#{code} as int)
+		order by regdate desc
+	</select>
+	<update id="hitUp">
+		update REVIEW_NOTICE set hit = hit+1
+		where code = #{code}
+	</update>
+
+</mapper>
+
+
+
+
+

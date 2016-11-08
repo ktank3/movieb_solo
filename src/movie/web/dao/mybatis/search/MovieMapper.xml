@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="search.web.dao.MovieDao">
+
+	<select id="get" resultType="search.web.dao.entity.Movie">
+		SELECT * FROM MOVIE WHERE CODE=#{code}	
+	</select>
+	
+	<select id="getList" resultType="search.web.dao.entity.Movie">
+		SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY RELEASEYEAR ASC)NUM,MOVIE.* FROM MOVIE 
+		WHERE ${param2} LIKE '%${param3}%')M 
+		WHERE NUM BETWEEN (1+(#{param1}-1)*5) AND #{param1}*5
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+		SELECT COUNT(*) FROM (SELECT ROW_NUMBER() OVER (ORDER BY RELEASEYEAR ASC)NUM,MOVIE.* FROM MOVIE WHERE ${param1} LIKE '%${param2}%')M
+	</select>
+	
+	<select id="getPrev" resultType="search.web.dao.entity.Movie">
+		SELECT TOP 1 * FROM MOVIE WHERE CODE &gt; CAST(#{code} AS INT)
+	</select>
+	
+	<select id="getNext" resultType="search.web.dao.entity.Movie">
+		SELECT TOP 1 * FROM MOVIE WHERE CODE &lt; CAST(#{code} AS INT)
+	</select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manager.web.dao.NoticeDao">
+
+	<select id="get" resultType="manager.web.dao.entity.Notice"> 
+		SELECT * FROM NOTICE WHERE CODE=#{code}
+	</select>
+	<select id="getList" resultType="manager.web.dao.model.ReviewModel">
+		SELECT * FROM 
+		(
+			SELECT 
+				ROW_NUMBER() OVER (ORDER BY REGDATE DESC) NUM,
+				NOTICE.*
+			FROM NOTICE
+			WHERE ${param2} LIKE '%${param3}%'
+		) N
+		WHERE NUM BETWEEN 1+(#{param1}-1)*10 AND #{param1}*10	
+	</select>
+	<update id="update" parameterType="manager.web.dao.entity.Notice">
+		<!-- 업데이트야요 -->
+		UPDATE NOTICE SET TITLE=#{title}, CONTENT=#{content} 
+		WHERE CODE=#{code}
+	</update>
+	<delete id="delete">
+		DELETE NOTICE WHERE CODE=#{code} 
+	</delete>
+	<insert id="insert" parameterType="manager.web.dao.entity.Notice">
+		<selectKey order="BEFORE" keyProperty="code" resultType="String">
+			SELECT ISNULL(MAX(CAST(CODE AS INT)), 0)+1 AS CODE FROM NOTICE
+		</selectKey>
+		INSERT INTO NOTICE(CODE, TITLE, WRITER, CONTENT)
+		VALUES(#{code}, #{title}, #{writer}, #{content})
+	</insert>
+	<select id="getCount" resultType="Integer">
+	SELECT COUNT(*) COUNT FROM 
+	(
+		SELECT 
+			ROW_NUMBER() OVER (ORDER BY REGDATE DESC) NUM,
+			NOTICE.*
+		FROM NOTICE
+		WHERE ${param1} LIKE '%${param2}%'
+	) N
+	</select>
+	
+</mapper>
+
+
+
+
+

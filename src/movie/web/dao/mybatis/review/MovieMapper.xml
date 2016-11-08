@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review.web.dao.MovieDao">
+
+	<select id="get" resultType="review.web.dao.entity.Movie"> 
+		
+	</select>
+	
+	<select id="getList" resultType="review.web.dao.entity.Movie">
+	SELECT * FROM(SELECT * FROM
+
+	MOVIE
+
+	WHERE ${param2} LIKE '%${param3}%'
+	)
+	WHERE NUM BETWEEN 1+(#{param1}-1)*10
+	AND #{param1}*10
+	</select>
+	
+	<select id="getCount" resultType="Integer">
+		
+	</select>
+</mapper>

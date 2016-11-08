@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+				<property name="url" value="jdbc:sqlserver://dev.newlecture.com:1433;databaseName=moviebdb" />
+				<property name="username" value="movieb" />
+				<property name="password" value="sist1020" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<!-- search mapper -->
+		<mapper resource="movie/web/dao/mybatis/search/MovieMapper.xml"/>
+		
+		
+		<!-- review mapper -->
+		<mapper resource="movie/web/dao/mybatis/review/ReviewMapper.xml"/>
+		<mapper resource="movie/web/dao/mybatis/review/MovieMapper.xml"/>
+		
+		
+		<!-- manager mapper -->
+		<mapper resource="movie/web/dao/mybatis/manager/NoticeMapper.xml"/>
+		<mapper resource="movie/web/dao/mybatis/manager/ReviewMapper.xml"/>
+	
+	</mappers>
+</configuration>
